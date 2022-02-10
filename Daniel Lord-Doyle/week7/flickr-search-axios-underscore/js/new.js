@@ -8,13 +8,10 @@ https://api.flickr.com/services/rest/flickr.photos.getInfo&id=51872559379&secret
 
 $(function() {
 
-    // return the data for an image index TODO: replace text with a search query
     const getData = async function(query) {
         console.log(query)
         data = await axios.get(FLICKR_BASE_URL, {
-            // headers: 
             params: {
-                //axios will combine these key-value pairs into the query string for us
                 method: 'flickr.photos.search',
                 api_key: FLICKR_API_KEY,
                 format: 'json',
@@ -32,9 +29,7 @@ $(function() {
 
     const getPhoto = async function(id) {
         data = await axios.get(FLICKR_BASE_URL, {
-            // headers: 
             params: {
-                //axios will combine these key-value pairs into the query string for us
                 method: 'flickr.photos.getInfo',
                 api_key: FLICKR_API_KEY,
                 format: 'json',
@@ -61,7 +56,7 @@ $(function() {
 
         $('#imageIndex').empty()
 
-        let photos = '<ol>'
+        let photos = '<ul>'
 
         data.forEach(function (datum) {
             imageURL = convertIntoImageLink(datum.server, datum.id, datum.secret, 'q')
@@ -71,7 +66,7 @@ $(function() {
                       </li>`
         })
 
-        photos += '</ol>'
+        photos += '</ul>'
 
         $('#imageIndex').append( photos );
 
@@ -115,22 +110,18 @@ $(function() {
         $('#backButton').on('click', function(){
             $('#imageShow').hide();
             $('#imageIndex').show();
-          }); // back button click handler
+          });
 
 
     }
 
-    // button handler
     $('#userQuery').focus();
-
     $('#searchForm').on('submit', function(event) {
 
         event.preventDefault();
         console.log('Form submitted');
-
-        // pass what user has written in the search form in to fetchSearchResults
         getData($('#query').val())
 
-    }) // submit handler
+    })
 
 }); // doc ready

@@ -1,7 +1,16 @@
 body {
     background-color: grey;
+    text-align: center;
 }
 
 #imageShow {
     display: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li{
+   display: inline-block;
 }
